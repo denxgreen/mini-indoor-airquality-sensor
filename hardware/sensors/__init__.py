@@ -1,0 +1,1 @@
+from hardware.sensors.dhtsensor import DHT

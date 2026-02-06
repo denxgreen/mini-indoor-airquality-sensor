@@ -1,6 +1,7 @@
 import os
 
 from constants import LOGS_PATH
+from utils.path import create_directory, directory_exists, file_exists
 
 DEBUG = 0
 INFO = 1
@@ -12,18 +13,19 @@ class Config:
     level: int = DEBUG
     filename: str = ""
 
-    def __init__(self, level: int, filename: str="") -> None:
+    def __init__(self, level: int = DEBUG, filename: str = "") -> None:
         Config.level = level
         Config.filename = filename
 
-        try:
+        if file_exists(LOGS_PATH + Config.filename):
             os.remove(LOGS_PATH + Config.filename)
-        except OSError:
-            pass
 
 def log(content: str, level_name: str, level_value: int) -> None:
     if level_value >= Config.level:
         if Config.filename:
+            if not directory_exists(LOGS_PATH):
+                create_directory(LOGS_PATH)
+
             with open(LOGS_PATH + Config.filename, 'a') as file:
                 file.write(f'{level_name} - {content}\n')
         else:
