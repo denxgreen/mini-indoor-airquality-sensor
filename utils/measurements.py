@@ -1,8 +1,7 @@
 from math import exp
 import json
 
-from constants import DATA_PATH, MEASUREMENTS_FILE
-from utils.path import create_directory, directory_exists
+from constants import MEASUREMENTS_FILE
 
 class HumidityUnit:
     ABSOLUTE: str = "absolute"
@@ -13,15 +12,12 @@ class TemperatureUnit:
     STANDARD: str = "standard"
     METRIC: str = "metric"
 
-def read_measurements() -> dict():
+def read_measurements() -> dict:
     with open(MEASUREMENTS_FILE, 'r') as file:
         measurements = json.load(file)
         return measurements
 
 def write_measurements(measurements: dict) -> None:
-    if not directory_exists(DATA_PATH):
-        create_directory(DATA_PATH)
-
     with open(MEASUREMENTS_FILE, 'w') as file:
         json.dump(measurements, file)
 

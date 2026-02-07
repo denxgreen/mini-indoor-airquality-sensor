@@ -1,13 +1,18 @@
 from machine import reset
 from time import sleep
 
+from constants import DATA_PATH
 from states.state import AbstractState
 from utils import Color, write_default_settings, write_details
+from utils.path import create_directory, directory_exists
 import utils.logging as logging
 
 class Configuration(AbstractState):
     def exec(self) -> None:
         self.enter()
+
+        if not directory_exists(DATA_PATH):
+            create_directory(DATA_PATH)
 
         write_default_settings()
 

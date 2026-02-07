@@ -10,5 +10,3 @@ class AbstractState:
         
     def exit(self) -> None:
         ...
-        
-    

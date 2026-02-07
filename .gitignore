@@ -1,3 +1,4 @@
 .idea/
-.vscode
+.vscode/
+.mpy-workbench/
 run.py
